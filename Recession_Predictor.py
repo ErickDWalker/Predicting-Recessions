@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[43]:
-
-
 """ 
 This program will attempt to calculate a probability of recession 12 months in the future by training a model on past 
 macroeconomic data. The practical value of such a predictor is not limited to Federal Reserve officials attempting to
@@ -88,15 +82,6 @@ logistic_regression = LogisticRegression(solver = "lbfgs") # <---look into best 
 random_forest_classifier = RandomForestClassifier(max_depth = 4, random_state = 0) # <--- max_depth / random_state?
 
 
-# In[ ]:
-
-
-
-
-
-# In[44]:
-
-
 # Logistic Regression Classifier
 X_train, X_test, y_train, y_test = train_test_split(shifted_covariate_data, classification_outcome, train_size = 0.5, random_state=1)
 logistic_regression.fit(X_train, y_train) #train the model
@@ -108,9 +93,6 @@ df["LOGISTIC_PROB_REC"] = recession_prob_LogReg[1].values * 100 # assign probabi
 #print("Probability:", logistic_regression.predict_proba(covariate_data)) #prob of data point being in each class
 #print("Class Prediction:", logistic_regression.predict(covariate_data)) #which class model assigns data point to
 #sklearn.feature_selection.f_regression(X, y, center=True)
-
-
-# In[45]:
 
 
 # Allow user to enter data points to output recession probability
@@ -139,13 +121,9 @@ print("")
 
 print("Std. Deviations recession score is above (below) mean:", "%.2f" % ((input_recession_score-mean_12M_recession_score)/std_dev_12M_recession_score))
 
-
-# In[46]:
-
-
-# Confusion Matrix
-# [[True Positive, False Positive],
-#  [False Negative, True Negative]]
+# Print Confusion Matrix
+# [[True Positives, False Positives],
+#  [False Negatives, True Negatives]]
 confusion_matrix_Log_Reg = confusion_matrix(y_test, recession_pred_LogReg)
 print(confusion_matrix_Log_Reg)
 print("Under Logistic Regression there were:")
@@ -154,9 +132,6 @@ print(confusion_matrix_Log_Reg[0,1],"False positives")
 print(confusion_matrix_Log_Reg[1,1],"True Negatives")
 print(confusion_matrix_Log_Reg[1,0],"False Negatives")
 print("Logistic regression score:", "%.2f" % (logistic_regression.score(X_test, y_test)*100),"%") #test accuracy of model
-
-
-# In[47]:
 
 
 # Function to plot results
@@ -195,122 +170,22 @@ def plot_results(df, column_name):
     save_file_path = os.path.join(filepath, column_name)
     plt.savefig(save_file_path)
 
-
-# In[48]:
-
-
+# Plot Logistic Regression    
 plot_results(df,"LOGISTIC_PROB_REC")
 
 
-# In[49]:
-
-
-# Formatting for ROC curve
-X_test_prob = pd.DataFrame(logistic_regression.predict_proba(X_test))
-y_prob = X_test_prob[1]
-# y_test_1 = y_test.reset_index()
-# y_test_1 = y_test_1["USREC"]
-# X_test = X_test.reset_index()
-yield_spread = X_test["T10Y3M_SMA"]
-unemployment_rate = X_test["UNRATE_SMA"]
-
-# Forming new df for ROC Curve and Accuracy curve
-df2 = pd.DataFrame({ "T10Y3M": yield_spread.values, "UNRATE": unemployment_rate.values, 'y_test': y_test.values, 'model_probability': y_prob})
-df2 = df2.sort_values('model_probability')
-
-# Creating 'True Positive', 'False Positive', 'True Negative' and 'False Negative' columns 
-df2['tp'] = (df2['y_test'] == int(0)).cumsum()
-df2['fp'] = (df2['y_test'] == int(1)).cumsum()
-total_0s = df2['y_test'].sum()
-total_1s = abs(total_0s - len(df2))
-df2['total_1s'] = total_1s
-df2['total_0s']= total_0s
-df2['total_instances'] = df2['total_1s'] + df2['total_0s']
-df2['tn'] = df2['total_0s'] - df2['fp']
-df2['fn'] = df2['total_1s'] - df2['tp']
-df2['fp_rate'] = df2['fp'] / df2['total_0s']
-df2['tp_rate'] = df2['tp'] / df2['total_1s']
-
-# Calculating accuracy column
-df2['accuracy'] = (df2['tp'] + df2['tn']) / (df2['total_1s'] + df2['total_0s'])
-
-# Deleting unnecessary columns
-df2.reset_index(inplace = True)
-del df2['total_1s']
-del df2['total_0s']
-del df2['total_instances']
-del df2['index']
-
-#print(df2.head(10))
-
-
-# In[50]:
-
-
-#Plot
-plt.plot(df2["model_probability"],df2["accuracy"], color = "c")
-plt.xlabel("Model Probability")
-plt.ylabel("Accuracy")
-plt.title("Optimal Cutoff")
-
-
-# In[51]:
-
-
-#Calculating AUC
-AUC = 1-(np.trapz(df[‘fp_rate’], df[‘tp_rate’]))
-
-#Plotting ROC/AUC graph
-plt.plot(df[‘fp_rate’], df[‘tp_rate’], color = ‘k’, label=’ROC Curve (AUC = %0.2f)’ % AUC)
-
-#Plotting AUC=0.5 red line
-plt.plot([0, 1], [0, 1],’r — ‘)
-plt.xlabel(‘False Positive Rate’)
-plt.ylabel(‘True Positive Rate (Sensitivity)’)
-plt.title(‘Receiver operating characteristic’)
-plt.legend(loc=”lower right”)
-plt.show()
-
-
-# In[52]:
-
-
-# Decision Tree Regressor
-def get_mae(max_leaf_nodes, X_train, X_test, y_train, y_test):
-    model = DecisionTreeRegressor(max_leaf_nodes=max_leaf_nodes, random_state=0)
-    model.fit(X_train, y_train)
-    preds_y = model.predict(X_test)
-    mae = mean_absolute_error(y_test, preds_y)
-    return(mae)
-
-
-# In[53]:
-
-
-for max_leaf_nodes in [5,50,100,250,500,1000]:
-    mae = get_mae(max_leaf_nodes, X_train, X_test, y_train, y_test)
-    print("Max leaf nodes:",max_leaf_nodes,"          Mean Absolute Error:", "%.2f" % mae)
-
-
-# In[54]:
-
-
-#Random Forest Classifier
+# Random Forest Classifier
 random_forest_classifier = RandomForestClassifier(max_depth = 4, random_state = 0)
 random_forest_classifier.fit(X_train, y_train)
 recession_random_forest_prob = pd.DataFrame(random_forest_classifier.predict_proba(covariate_data))
 df["RANDOM_FOREST_PROB_REC"] = recession_random_forest_prob[1].values * 100 # assign probability of recession (1) to new column in df
 
-#Calculating the accuracy of the training model on the testing data
+# Calculating the accuracy of the training model on the testing data
 recession_pred_Random_Forest = pd.DataFrame(random_forest_classifier.predict(X_test))
 
-
-# In[55]:
-
-
 # Confusion Matrix
-# [[True Positive, False Positive],
-#  [False Negative, True Negative]]
+# [[True Positives, False Positives],
+#  [False Negatives, True Negatives]]
 confusion_matrix_Random_Forest = confusion_matrix(y_test, recession_pred_Random_Forest) # compare actual test outcomes to predicted outcomes 
 print(confusion_matrix_Random_Forest)
 print("Under Logistic Regression there were:")
@@ -320,36 +195,5 @@ print(confusion_matrix_Random_Forest[1,1],"True Negatives")
 print(confusion_matrix_Random_Forest[1,0],"False Negatives")
 print("Random forest classifier score: ", "%.2f" % (random_forest_classifier.score(X_test, y_test) * 100), "%")
 
-
-# In[56]:
-
-
 # Plot results of Random Forest 
 plot_results(df,"RANDOM_FOREST_PROB_REC")
-
-
-# In[57]:
-
-
-def accuracy(estimator, X, y): # Classification
-    predictions = estimator.fit(X, y).predict(X)
-    return accuracy_score(y, predictions)
-
-logistic_regression_scores = cross_val_score(logistic_regression, shifted_covariate_data, classification_outcome, cv=10, scoring=accuracy)
-random_forest_classification_scores = cross_val_score(random_forest_classifier, shifted_covariate_data, classification_outcome, cv=10, scoring=accuracy)
-
-# print("Logistic Regression Scores:",logistic_regression_scores)
-# print("Forest Classification Scores:",forest_classification_scores)
-
-# Plot Results
-plt.axes().set_aspect('equal', 'box')
-plt.scatter(logistic_regression_scores, random_forest_classification_scores)
-plt.plot((0, 1), (0, 1), 'k-')
-
-plt.xlim(0, 1)
-plt.ylim(0, 1)
-plt.xlabel("Linear Classification Score")
-plt.ylabel("Forest Classification Score")
-
-plt.show()
-
