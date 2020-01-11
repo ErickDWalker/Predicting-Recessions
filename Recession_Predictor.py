@@ -5,7 +5,7 @@ set interest rate policy based on forecasted economic conditions. Another envisi
 who might wish to shift weights of various asset classes in anticipation of a decline in economic activity.  
 
 The independent variables being used to train the model are the yield curve, expressed as the difference
-between the 10-yr and 3-month yields on US Treasury securities, and the Civilian Unemployment Rate. All data used to build 
+between the 10-yr and 3-month yields on US Treasury securities, and the Civilian Unemployment Rate (U3). All data used to build 
 the predictor is obtained from the Economic Database of the Federal Reserve Bank of St. Louis (FRED).
 
 Sources:
