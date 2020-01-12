@@ -1,20 +1,20 @@
 """ 
 This program will attempt to calculate a probability of recession 12 months in the future by training a model on past 
-macroeconomic data. The practical value of such a predictor is not limited to Federal Reserve officials attempting to
-set interest rate policy based on forecasted economic conditions. Another envisioned use is for portfolio managers,
-who might wish to shift weights of various asset classes in anticipation of a decline in economic activity.  
+macroeconomic data. The independent variables being used to train the model are the yield curve, expressed as the difference 
+between yields on 10-yr and 3-month US Treasury securities, and the Civilian Unemployment Rate (U3). The dependent variable 
+is a recession indicator marked one (1) for the occurrence of recession, and zero (0) for a lack of one. All data used to build
+the predictor is obtained from the Federal Reserve Bank of St. Louis Economic Database (FRED).
 
-The independent variables being used to train the model are the yield curve, expressed as the difference
-between yields on 10-yr and 3-month US Treasury securities, and the Civilian Unemployment Rate (U3). All data used to build 
-the predictor is obtained from the Economic Database of the Federal Reserve Bank of St. Louis (FRED).
+The practical value of such a predictor is not limited to Federal Reserve officials attempting to
+set interest rate policy based on forecasted economic conditions. Another envisioned use includes portfolio management,
+which might benefit from shifting weights of various asset classes in anticipation of a decline in economic activity.  
 
 Sources:
-Recession Indicators (USREC column in data): https://fred.stlouisfed.org/series/USREC
-Unemployment rate (UNRATE column):  https://fred.stlouisfed.org/series/UNRATE. 
+Recession Indicator (USREC column in data): https://fred.stlouisfed.org/series/USREC
+Unemployment rate (UNRATE column):  https://fred.stlouisfed.org/series/UNRATE
 Yield curve: (T10Y3M column):  https://fred.stlouisfed.org/series/T10Y3M
 S&P500 prices: http://www.econ.yale.edu/~shiller/data.htm
 *Data used to train the model begins March 1982 and ends November 2019
-
 """
 
 import pandas as pd
@@ -130,7 +130,7 @@ def plot_results(df, column_name):
     ax1.plot(df['USREC'], 'lightgray', label='USREC')
     ax1.fill_between(df.index,df['USREC'],color="lightgray",alpha=0.3)
     ax1.plot(df[column_name], 'maroon', label='PROB_REC')
-    ax1.set_ylabel("Recession Indicator & Probability (%)", labelpad=10)
+    ax1.set_ylabel("Recession Indicator & Probability (%)", labelpad=5)
     
     # Align y-axes zero tick
     _, y1 = axs[0].transData.transform((0, 0))
@@ -161,7 +161,6 @@ def plot_results(df, column_name):
 
 # Plot results
 plot_results(df,"LOGISTIC_PROB_REC")
-
 
 #Random Forest Classifier
 random_forest_classifier = RandomForestClassifier(max_depth = 4, random_state = 0)
