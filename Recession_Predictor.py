@@ -27,10 +27,6 @@ from sklearn.model_selection import cross_val_score
 from sklearn.metrics import confusion_matrix
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import r2_score
-from sklearn.metrics import mean_absolute_error
-from sklearn.tree import DecisionTreeRegressor
 
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
