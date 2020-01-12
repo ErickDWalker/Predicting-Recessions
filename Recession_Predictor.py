@@ -5,7 +5,7 @@ set interest rate policy based on forecasted economic conditions. Another envisi
 who might wish to shift weights of various asset classes in anticipation of a decline in economic activity.  
 
 The independent variables being used to train the model are the yield curve, expressed as the difference
-between the yields on 10-yr and 3-month US Treasury securities, and the Civilian Unemployment Rate (U3). All data used to build 
+between yields on 10-yr and 3-month US Treasury securities, and the Civilian Unemployment Rate (U3). All data used to build 
 the predictor is obtained from the Economic Database of the Federal Reserve Bank of St. Louis (FRED).
 
 Sources:
@@ -78,9 +78,8 @@ df.to_csv(path_or_buf = r"C:\Users\erick\OneDrive\Desktop\Work\Python_files\Rece
 # print(training_testing_data) 
 
 # Instantiate all regression models and classifiers.
-logistic_regression = LogisticRegression(solver = "lbfgs") # <---look into best solver method
-random_forest_classifier = RandomForestClassifier(max_depth = 4, random_state = 0) # <--- max_depth / random_state?
-
+logistic_regression = LogisticRegression(solver = "lbfgs")
+random_forest_classifier = RandomForestClassifier(max_depth = 4, random_state = 0)
 
 # Logistic Regression Classifier
 X_train, X_test, y_train, y_test = train_test_split(shifted_covariate_data, classification_outcome, train_size = 0.5, random_state=1)
@@ -94,36 +93,26 @@ df["LOGISTIC_PROB_REC"] = recession_prob_LogReg[1].values * 100 # assign probabi
 #print("Class Prediction:", logistic_regression.predict(covariate_data)) #which class model assigns data point to
 #sklearn.feature_selection.f_regression(X, y, center=True)
 
-
 # Allow user to enter data points to output recession probability
-count = 0
 user_input = []
-while count < 2:
-    if count == 0: 
-        user_input.append(float(input("Enter a 10-yr : 3-month Treasury spread:")))
-        
-    else: 
-        user_input.append(float(input("Enter Unemployment Rate:")))
-    count += 1
+user_input.append(float(input("Enter a 10-yr : 3-month Treasury spread:")))
+user_input.append(float(input("Enter Unemployment Rate:")))
     
 input_recession_score = logistic_regression.predict_proba(np.array(user_input).reshape(1,-1))[0,1] * 100    
 print("Recession probability under Logistic Regression: ", "%.2f" % input_recession_score, "%")    
-
 rec_prob_12M_ahead = df[df["shifted_USREC"]==100]["LOGISTIC_PROB_REC"]
 print("")
-
 mean_12M_recession_score = rec_prob_12M_ahead.mean()
 std_dev_12M_recession_score = np.std(rec_prob_12M_ahead)
 
 print("Summary statistics for points in time 12-months prior to recession indicator = 1:")
 print(df[df["shifted_USREC"]==100]["LOGISTIC_PROB_REC"].describe())
 print("")
-
 print("Std. Deviations recession score is above (below) mean:", "%.2f" % ((input_recession_score-mean_12M_recession_score)/std_dev_12M_recession_score))
 
-# Print Confusion Matrix
-# [[True Positives, False Positives],
-#  [False Negatives, True Negatives]]
+# Logistic Regression Confusion Matrix
+# [[True Positive, False Positive],
+#  [False Negative, True Negative]]
 confusion_matrix_Log_Reg = confusion_matrix(y_test, recession_pred_LogReg)
 print(confusion_matrix_Log_Reg)
 print("Under Logistic Regression there were:")
@@ -133,26 +122,32 @@ print(confusion_matrix_Log_Reg[1,1],"True Negatives")
 print(confusion_matrix_Log_Reg[1,0],"False Negatives")
 print("Logistic regression score:", "%.2f" % (logistic_regression.score(X_test, y_test)*100),"%") #test accuracy of model
 
-
 # Function to plot results
 def plot_results(df, column_name):
     fig, axs = plt.subplots(2,figsize=(7,9))
 
+    axs[0].xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
     axs[0].plot(df.index, df['T10Y3M_SMA'], '--g', label='T10Y3M_SMA')
     axs[0].plot(df['UNRATE_SMA'], '--b', label='UNRATE_SMA')
     axs[0].set_ylabel("10YR-less-3M & Unemployment (%)")
-    #axs[0].yaxis.set_major_formatter(mtick.FormatStrFormatter('%.1f'))
-    axs[0].xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
-
+    
     ax1 = axs[0].twinx()
     ax1.plot(df['USREC'], 'lightgray', label='USREC')
     ax1.fill_between(df.index,df['USREC'],color="lightgray",alpha=0.3)
     ax1.plot(df[column_name], 'maroon', label='PROB_REC')
-    ax1.set_ylabel("Recession Indicator & Probability (%)", labelpad=0) # to rotate (rotation = 270)
+    ax1.set_ylabel("Recession Indicator & Probability (%)", labelpad=10)
+    
+    # Align y-axes zero tick
+    _, y1 = axs[0].transData.transform((0, 0))
+    _, y2 = ax1.transData.transform((0, 0))
+    inv = ax1.transData.inverted()
+    _, dy = inv.transform((0, 0)) - inv.transform((0, y1-y2))
+    miny, maxy = ax1.get_ylim()
+    ax1.set_ylim(bottom = miny+dy)
 
     fig.legend(loc="upper right", bbox_to_anchor=(1,1), bbox_transform=ax1.transAxes, prop={'size': 8})
     plt.subplots_adjust(hspace=.2)
-
+    
     # Plot S&P500
     axs[1].plot(df.index, (1+df['S&P500_return']).rolling(12).apply(np.prod, raw=True)-1, 'k', label='S&P500')
     axs[1].set_ylabel("S&P500 rolling 12-month return")
@@ -163,29 +158,28 @@ def plot_results(df, column_name):
     ax2.axes.get_yaxis().set_ticks([])
     axs[1].axhline(y=0, color='r', linestyle='-')
     axs[1].xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
-
-    # plt.savefig(filepath)
+    
     filepath = r"C:\Users\erick\OneDrive\Desktop\Work\Python_files\Recession_Indicator\output_files"
     column_name = column_name + r".pdf"
-    save_file_path = os.path.join(filepath, column_name)
-    plt.savefig(save_file_path)
+    save_plot_path = os.path.join(filepath, column_name)
+    plt.savefig(save_plot_path)
 
-# Plot Logistic Regression    
+# Plot results
 plot_results(df,"LOGISTIC_PROB_REC")
 
 
-# Random Forest Classifier
+#Random Forest Classifier
 random_forest_classifier = RandomForestClassifier(max_depth = 4, random_state = 0)
 random_forest_classifier.fit(X_train, y_train)
 recession_random_forest_prob = pd.DataFrame(random_forest_classifier.predict_proba(covariate_data))
 df["RANDOM_FOREST_PROB_REC"] = recession_random_forest_prob[1].values * 100 # assign probability of recession (1) to new column in df
 
-# Calculating the accuracy of the training model on the testing data
+# Calculate accuracy of the Random Forest training model on the testing data
 recession_pred_Random_Forest = pd.DataFrame(random_forest_classifier.predict(X_test))
 
-# Confusion Matrix
-# [[True Positives, False Positives],
-#  [False Negatives, True Negatives]]
+# Random Forest Confusion Matrix
+# [[True Positive, False Positive],
+#  [False Negative, True Negative]]
 confusion_matrix_Random_Forest = confusion_matrix(y_test, recession_pred_Random_Forest) # compare actual test outcomes to predicted outcomes 
 print(confusion_matrix_Random_Forest)
 print("Under Logistic Regression there were:")
