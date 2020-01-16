@@ -14,7 +14,12 @@ Recession Indicator (USREC column in data): https://fred.stlouisfed.org/series/U
 Unemployment rate (UNRATE column):  https://fred.stlouisfed.org/series/UNRATE
 Yield curve: (T10Y3M column):  https://fred.stlouisfed.org/series/T10Y3M
 S&P500 prices: http://www.econ.yale.edu/~shiller/data.htm
-*Data used to train the model begins March 1982 and ends November 2019
+
+*Data used to train the model begins March 1982 and ends December 2019. While the start of this period appears to conveniently 
+coincide with the beginning of data availability for the yield spread, I believe it is also more representative of economic 
+conditions going forward. Years prior to 1980 saw the rise of double digit inflation, among other major differences with today's 
+macroeconomy, making it seem appropriate to limit the period studied to the more recent past. 
+
 """
 
 import pandas as pd
