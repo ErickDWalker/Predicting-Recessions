@@ -66,7 +66,6 @@ df["shifted_USREC"] = df["shifted_USREC"].fillna(0)
 
 classification_target = "USREC"
 covariate_names = ["T10Y3M_SMA", "UNRATE_SMA"]
-#covariate_names = ["T10Y3M_SMA"]
 
 classification_outcome = shifted_df[classification_target]
 covariate_data = df[covariate_names]
@@ -74,8 +73,6 @@ shifted_covariate_data = shifted_df[covariate_names]
 
 df.to_csv(path_or_buf = r"C:\Users\erick\OneDrive\Desktop\Work\Python_files\Recession_Indicator\output_files\final_data_with_rec_prob.csv")
 
-# view data to ensure proper cleaning
-# print(training_testing_data) 
 
 # Instantiate all regression models and classifiers.
 logistic_regression = LogisticRegression(solver = "lbfgs")
@@ -88,10 +85,6 @@ recession_pred_LogReg = pd.DataFrame(logistic_regression.predict(X_test))
 recession_prob_LogReg = pd.DataFrame(logistic_regression.predict_proba(covariate_data)) # predict probability of recession on full dataset
 df["LOGISTIC_PROB_REC"] = recession_prob_LogReg[1].values * 100 # assign probability of recession (1) to new column in df 
 
-#logistic_regression.coef_
-#print("Probability:", logistic_regression.predict_proba(covariate_data)) #prob of data point being in each class
-#print("Class Prediction:", logistic_regression.predict(covariate_data)) #which class model assigns data point to
-#sklearn.feature_selection.f_regression(X, y, center=True)
 
 # Allow user to enter data points to output recession probability
 user_input = []
