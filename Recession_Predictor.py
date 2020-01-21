@@ -79,7 +79,7 @@ logistic_regression = LogisticRegression(solver = "lbfgs")
 random_forest_classifier = RandomForestClassifier(max_depth = 4, random_state = 0)
 
 # Logistic Regression Classifier
-X_train, X_test, y_train, y_test = train_test_split(shifted_covariate_data, classification_outcome, train_size = 0.5, random_state=1)
+X_train, X_test, y_train, y_test = train_test_split(shifted_covariate_data, classification_outcome, train_size = 0.75, random_state=1)
 logistic_regression.fit(X_train, y_train) #train the model
 recession_pred_LogReg = pd.DataFrame(logistic_regression.predict(X_test))
 recession_prob_LogReg = pd.DataFrame(logistic_regression.predict_proba(covariate_data)) # predict probability of recession on full dataset
