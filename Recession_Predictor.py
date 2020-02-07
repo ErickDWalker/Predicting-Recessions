@@ -5,9 +5,9 @@ between yields on 10-yr and 3-month US Treasury securities, and the Civilian Une
 is a recession indicator marked one (1) for the occurrence of recession, and zero (0) for the absence of one. All data used to build
 the predictor is obtained from the Federal Reserve Bank of St. Louis Economic Database (FRED).
 
-The practical value of such a predictor is not limited to Federal Reserve officials attempting to
-set interest rate policy based on forecasted economic conditions. Another envisioned use includes portfolio management,
-which might benefit from shifting weights of various asset classes in anticipation of a decline in economic activity.  
+The practical value of such a predictor is not limited to Federal Reserve officials attempting to set interest rate policy based on
+forecasted economic conditions. For example, another envisioned application is to the field of portfolio management, in which managers
+may look to shift weights of various asset classes in anticipation of a decline in economic activity.  
 
 Sources:
 Recession Indicator (USREC column in data): https://fred.stlouisfed.org/series/USREC
