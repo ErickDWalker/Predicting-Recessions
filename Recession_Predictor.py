@@ -46,14 +46,18 @@ df.to_csv(path_or_buf = r"C:\Users\erick\OneDrive\Desktop\Work\Python_files\Rece
 # Create S&P500 return column and smooth X variables
 df = df.rename(columns={"S&P":"S&P500"})
 df.insert(df.columns.get_loc("S&P500")+1,"S&P500_return",df.pct_change(axis=0)["S&P500"])
-df["T10Y3M_SMA"] = df.T10Y3M.rolling(3).mean() # 3-month moving averages to smooth out noise
+
+# 3-month moving averages to smooth out noise
+df["T10Y3M_SMA"] = df.T10Y3M.rolling(3).mean() 
 df["UNRATE_SMA"] = df.UNRATE.rolling(3).mean()
 df = df.dropna(axis=0)
 df.to_csv(path_or_buf = r"C:\Users\erick\OneDrive\Desktop\Work\Python_files\Recession_Indicator\output_files\combined_data_cleaned.csv")
 
 # create separate DataFrame to house shifted USREC indicator
 shifted_df = df.copy() 
-shifted_df["USREC"] = shifted_df["USREC"].shift(-12) # shift USREC back 12-months - we aim to forecast a recession one year ahead
+
+# shift USREC back 12-months - we aim to forecast a recession one year ahead
+shifted_df["USREC"] = shifted_df["USREC"].shift(-12) 
 shifted_df = shifted_df.dropna(axis=0)
 shifted_df.to_csv(path_or_buf = r"C:\Users\erick\OneDrive\Desktop\Work\Python_files\Recession_Indicator\output_files\combined_data_cleaned_shifted.csv")
 df["shifted_USREC"] = shifted_df["USREC"]
@@ -75,10 +79,14 @@ random_forest_classifier = RandomForestClassifier(max_depth = 4, random_state = 
 
 # Logistic Regression Classifier
 X_train, X_test, y_train, y_test = train_test_split(shifted_covariate_data, classification_outcome, train_size = 0.75, random_state=1)
-logistic_regression.fit(X_train, y_train) #train the model
+logistic_regression.fit(X_train, y_train)
 recession_pred_LogReg = pd.DataFrame(logistic_regression.predict(X_test))
-recession_prob_LogReg = pd.DataFrame(logistic_regression.predict_proba(covariate_data)) # predict probability of recession on full dataset
-df["LOGISTIC_PROB_REC"] = recession_prob_LogReg[1].values * 100 # assign probability of recession (1) to new column in df 
+
+# predict probability of recession on full dataset
+recession_prob_LogReg = pd.DataFrame(logistic_regression.predict_proba(covariate_data))
+
+# assign probability of recession (1) to new column in df
+df["LOGISTIC_PROB_REC"] = recession_prob_LogReg[1].values * 100 
 
 
 # Allow user to enter data points to output recession probability
@@ -159,7 +167,8 @@ plot_results(df,"LOGISTIC_PROB_REC")
 random_forest_classifier = RandomForestClassifier(max_depth = 4, random_state = 0)
 random_forest_classifier.fit(X_train, y_train)
 recession_random_forest_prob = pd.DataFrame(random_forest_classifier.predict_proba(covariate_data))
-df["RANDOM_FOREST_PROB_REC"] = recession_random_forest_prob[1].values * 100 # assign probability of recession (1) to new column in df
+# assign probability of recession (1) to new column in df
+df["RANDOM_FOREST_PROB_REC"] = recession_random_forest_prob[1].values * 100 
 
 # Calculate accuracy of the Random Forest training model on the testing data
 recession_pred_Random_Forest = pd.DataFrame(random_forest_classifier.predict(X_test))
@@ -167,7 +176,8 @@ recession_pred_Random_Forest = pd.DataFrame(random_forest_classifier.predict(X_t
 # Random Forest Confusion Matrix
 # [[True Positive, False Positive],
 #  [False Negative, True Negative]]
-confusion_matrix_Random_Forest = confusion_matrix(y_test, recession_pred_Random_Forest) # compare actual test outcomes to predicted outcomes 
+# Compare actual test outcomes to predicted outcomes 
+confusion_matrix_Random_Forest = confusion_matrix(y_test, recession_pred_Random_Forest) 
 print(confusion_matrix_Random_Forest)
 print("Under Logistic Regression there were:")
 print(confusion_matrix_Random_Forest[0,0],"True positives")
