@@ -1,5 +1,5 @@
 """ 
-This program will attempt to calculate a probability of recession 12 months in the future by training a model on past 
+This program aims to calculate a probability of recession 12 months in the future by training a model on past 
 macroeconomic data. The independent variables being used to train the model are the yield curve, expressed as the difference 
 between yields on 10-yr and 3-month US Treasury securities, and the Civilian Unemployment Rate (U3). The dependent variable 
 is a recession indicator marked one (1) for the occurrence of recession, and zero (0) for the absence of one. All data used to build
