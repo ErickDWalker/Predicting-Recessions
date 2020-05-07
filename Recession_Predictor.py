@@ -1,13 +1,9 @@
 """ 
-This program aims to calculate a probability of recession 12 months in the future by training a model on past 
-macroeconomic data. The independent variables being used to train the model are the yield curve, expressed as the difference 
-between yields on 10-yr and 3-month US Treasury securities, and the Civilian Unemployment Rate (U3). The dependent variable 
-is a recession indicator marked one (1) for the occurrence of recession, and zero (0) for the absence of one. All data used to build
-the predictor is obtained from the Federal Reserve Bank of St. Louis Economic Database (FRED).
-
-The practical value of such a predictor is not limited to Federal Reserve officials attempting to set interest rate policy based on
-forecasted economic conditions. For example, another envisioned application is to the field of portfolio management, in which managers
-may look to shift weights of various asset classes in anticipation of a decline in economic activity.  
+This program aims to develop a warning signal for the occurrence of recession 12 months in the future by training Logistic Regression
+and Random Forest Classifier on past macroeconomic data. The independent variables being used to train the model are the yield curve, 
+expressed as the difference between yields on 10-yr and 3-month US Treasury securities, and the Civilian Unemployment Rate (U3). The 
+dependent variable is a recession indicator marked one (1) for the occurrence of recession, and zero (0) for the absence of one. All 
+data used to build the predictor is obtained from the St. Louis Federal Reserve Bank's Economic Database (FRED).
 
 Sources:
 Recession Indicator (USREC column in data): https://fred.stlouisfed.org/series/USREC
@@ -33,14 +29,14 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # Combine data files into DataFrame
-path = r"C:\Users\erick\OneDrive\Desktop\Work\Python_files\Recession_Indicator\csv_files\Used_for_Predictor"
+path = r"file_path"
 filenames = glob.glob(path + "/*.csv")
 df = pd.concat((pd.read_csv(filename, index_col = 0, header=0) for filename in filenames), axis = 1, sort = True)
 
 df.index = pd.to_datetime(df.index)
 df = df.sort_index()
 df["USREC"] = df["USREC"] * 100
-df.to_csv(path_or_buf = r"C:\Users\erick\OneDrive\Desktop\Work\Python_files\Recession_Indicator\output_files\combined_data_raw.csv")
+df.to_csv(path_or_buf = r"file_path/combined_data_raw.csv")
 # print(df.tail(20)) *view data to ensure proper import
 
 # Create S&P500 return column and smooth X variables
@@ -51,7 +47,7 @@ df.insert(df.columns.get_loc("S&P500")+1,"S&P500_return",df.pct_change(axis=0)["
 df["T10Y3M_SMA"] = df.T10Y3M.rolling(3).mean() 
 df["UNRATE_SMA"] = df.UNRATE.rolling(3).mean()
 df = df.dropna(axis=0)
-df.to_csv(path_or_buf = r"C:\Users\erick\OneDrive\Desktop\Work\Python_files\Recession_Indicator\output_files\combined_data_cleaned.csv")
+df.to_csv(path_or_buf = r"file_path/combined_data_cleaned.csv")
 
 # create separate DataFrame to house shifted USREC indicator
 shifted_df = df.copy() 
@@ -59,7 +55,7 @@ shifted_df = df.copy()
 # shift USREC back 12-months - we aim to forecast a recession one year ahead
 shifted_df["USREC"] = shifted_df["USREC"].shift(-12) 
 shifted_df = shifted_df.dropna(axis=0)
-shifted_df.to_csv(path_or_buf = r"C:\Users\erick\OneDrive\Desktop\Work\Python_files\Recession_Indicator\output_files\combined_data_cleaned_shifted.csv")
+shifted_df.to_csv(path_or_buf = r"file_path/combined_data_cleaned_shifted.csv")
 df["shifted_USREC"] = shifted_df["USREC"]
 df["shifted_USREC"] = df["shifted_USREC"].fillna(0)
 
@@ -70,7 +66,7 @@ classification_outcome = shifted_df[classification_target]
 covariate_data = df[covariate_names]
 shifted_covariate_data = shifted_df[covariate_names]
 
-df.to_csv(path_or_buf = r"C:\Users\erick\OneDrive\Desktop\Work\Python_files\Recession_Indicator\output_files\final_data_with_rec_prob.csv")
+df.to_csv(path_or_buf = r"file_path/final_data_with_rec_prob.csv")
 
 
 # Instantiate all regression models and classifiers.
@@ -155,7 +151,7 @@ def plot_results(df, column_name):
     axs[1].axhline(y=0, color='r', linestyle='-')
     axs[1].xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
     
-    filepath = r"C:\Users\erick\OneDrive\Desktop\Work\Python_files\Recession_Indicator\output_files"
+    filepath = r"file_path/output_files"
     column_name = column_name + r".pdf"
     save_plot_path = os.path.join(filepath, column_name)
     plt.savefig(save_plot_path)
