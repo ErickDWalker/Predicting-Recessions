@@ -1,6 +1,5 @@
 """ 
-This program aims to develop a warning signal for the occurrence of recession 12 months in the future by training Logistic Regression
-and Random Forest Classifier on past macroeconomic data. The independent variables being used to train the model are the yield curve, 
+This program aims to develop a warning signal for the occurrence of recession 12 months in the future by training a basic Logistic Regression model on past macroeconomic data. The independent variables being used to train the model are the yield curve, 
 expressed as the difference between yields on 10-yr and 3-month US Treasury securities, and the Civilian Unemployment Rate (U3). The 
 dependent variable is a recession indicator marked one (1) for the occurrence of recession, and zero (0) for the absence of one. All 
 data used to build the predictor is obtained from the St. Louis Federal Reserve Bank's Economic Database (FRED).
@@ -21,7 +20,6 @@ import os
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
 
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
@@ -69,9 +67,8 @@ shifted_covariate_data = shifted_df[covariate_names]
 df.to_csv(path_or_buf = r"file_path/final_data_with_rec_prob.csv")
 
 
-# Instantiate all regression models and classifiers.
+# Instantiate model.
 logistic_regression = LogisticRegression(solver = "lbfgs")
-random_forest_classifier = RandomForestClassifier(max_depth = 4, random_state = 0)
 
 # Logistic Regression Classifier
 X_train, X_test, y_train, y_test = train_test_split(shifted_covariate_data, classification_outcome, train_size = 0.75, random_state=1)
@@ -159,28 +156,3 @@ def plot_results(df, column_name):
 # Plot results
 plot_results(df,"LOGISTIC_PROB_REC")
 
-#Random Forest Classifier
-random_forest_classifier = RandomForestClassifier(max_depth = 4, random_state = 0)
-random_forest_classifier.fit(X_train, y_train)
-recession_random_forest_prob = pd.DataFrame(random_forest_classifier.predict_proba(covariate_data))
-# assign probability of recession (1) to new column in df
-df["RANDOM_FOREST_PROB_REC"] = recession_random_forest_prob[1].values * 100 
-
-# Calculate accuracy of the Random Forest training model on the testing data
-recession_pred_Random_Forest = pd.DataFrame(random_forest_classifier.predict(X_test))
-
-# Random Forest Confusion Matrix
-# [[True Positive, False Positive],
-#  [False Negative, True Negative]]
-# Compare actual test outcomes to predicted outcomes 
-confusion_matrix_Random_Forest = confusion_matrix(y_test, recession_pred_Random_Forest) 
-print(confusion_matrix_Random_Forest)
-print("Under Logistic Regression there were:")
-print(confusion_matrix_Random_Forest[0,0],"True positives")
-print(confusion_matrix_Random_Forest[0,1],"False positives")
-print(confusion_matrix_Random_Forest[1,1],"True Negatives")
-print(confusion_matrix_Random_Forest[1,0],"False Negatives")
-print("Random forest classifier score: ", "%.2f" % (random_forest_classifier.score(X_test, y_test) * 100), "%")
-
-# Plot results of Random Forest 
-plot_results(df,"RANDOM_FOREST_PROB_REC")
