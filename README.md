@@ -42,8 +42,7 @@ After choosing a model I used the model's output scores (the maroon line in the 
 2. The weights to shift the portfolio into once that model score is hit, and
 3. The model score at which to resume the portfolio's baseline asset allocation 
 
-For the second variable, the simulations were "instructed" to keep the portfolio's stock weight at or under the baseline. In other words, with a 60 | 40 portoflio the stock weight could go no higher than 60%. Other than when the rules counsel a shift in asset allocation, portfolio weights are kept constant, and the default test case for developing these rules was a classic 60 | 40 (stocks | bonds) portfolio.    
-
+Other than when the rules counsel a shift in asset allocation, portfolio weights are kept constant at a baseline allocation that can be chosen in advance by the user. The default baseline case used in the notebook for developing the rules was a classic 60 | 40 (stocks | bonds) portfolio. In deciding what asset weights to shift into (variable #2), the simulations were "instructed" to keep the portfolio's stock weight at or under the baseline's. In other words, with the default baseline 60 | 40 portfolio the stock weight was not allowed to be set higher than 60%. 
 
 
 Results
