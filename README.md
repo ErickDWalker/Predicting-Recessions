@@ -53,7 +53,7 @@ Stated formally, the trading rules resulting in the highest portfolio returns we
 ![alt text](https://github.com/ErickDWalker/Recession_Prediction/blob/master/img/portfolio_weights_60:40_return_train.png?raw=true)  
 
 
-Over the test set time frame (January, 2003 - May, 2020) a 60 | 40 portfolio that followed the above trading rules would have earned a 9.44% CAGR versus the passsive 60 | 40 portfolio's 7.77%. To put that into dollars, an initial investment of $10,000 in the passive strategy would have grown to $36,634, while the trading portfolio would have grown to $47,779 (plot of the growth of $10,000 in various portfolios shown below). In addition the trading portfolio achieved this outperformance with a lower standard deviation of returns (1.87% vs 2.08%).  
+Over the test set time frame (January, 2003 - May, 2020) a 60 | 40 portfolio that followed the above trading rules would have earned a 9.44% CAGR versus the passsive 60 | 40 portfolio's 7.77%. Translating that outperformance into dollars, an initial investment of $10,000 in the passive strategy would have grown to $36,634, while the trading portfolio would have grown to $47,779 (plot of the growth of $10,000 in various portfolios shown below). In addition the trading portfolio achieved this outperformance with a lower standard deviation of returns (1.87% vs 2.08%).  
 
 
 ![alt text](https://github.com/ErickDWalker/Recession_Prediction/blob/master/img/60:40_test.png?raw=true)
