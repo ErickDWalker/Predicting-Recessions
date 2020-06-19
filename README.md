@@ -40,4 +40,10 @@ Results
 ---
 Stated formally, the trading rules resulting in the highest portfolio returns were: Shift out of the stock market into a 10 | 90 (stocks | bonds) allocation once the model score hits 0.70, and hold that allocation until the model score reaches 0.10 or lower (at which point the portfolio returns to its baseline 60 | 40 allocation).
 
+![alt text](https://github.com/ErickDWalker/Recession_Prediction/blob/master/portfolio_weights_60:40_return_train.png?raw=true)
+
+
+
+
+
 Over the test set timeframe (January, 2003 - May, 2020) a 60 | 40 portfolio that followed the above trading rules would have earned a 9.44% CAGR versus the passsive 60 | 40 portfolio's 7.77%. To put that into dollars, an initial investment of $10,000 would have grown to $36,634, while the trading portfolio would have grown to $47,779. In addition the trading portfolio achieved this outperformance with a lower standard deviation of returns (1.87% vs 2.08%)
