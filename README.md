@@ -1,6 +1,6 @@
 ## Using Recession Predictions to Improve Asset Allocation Strategies
 
-### Overview
+Overview
 ---
 This program aims to predict the occurrence of economic recessions 12-months in the future by training a classification model on past macroeconomic data. Scores output by this model are then used to develop simple trading rules that aim to shift a theoretical investor's portfolio out of the stock market before recessions - and presumably stock market declines - occur. The stock market in this case is the S&P 500, and any money not invested in the market at any given time is assumed to be invested in 10-year U.S. Treasuries.
 
