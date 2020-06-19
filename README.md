@@ -24,7 +24,7 @@ The independent variables being used to train the model are the yield curve, exp
 3. Unemployment rate (UNRATE, Frequency = Monthly):  https://fred.stlouisfed.org/series/UNRATE
 4. NFCI Nonfinancial Leverage Subindex (Frequency = Weekly): https://fred.stlouisfed.org/series/NFCINONFINLEVERAGE
 5. 10-yr constant maturity rate (DGS10): https://fred.stlouisfed.org/series/DGS10
-6. S&P 500 data: http://www.econ.yale.edu/~shiller/data.htm
+6. S&P 500 data: http://www.econ.yale.edu/~shiller/data/ie_data.xls
 7. Consumer Price Index (CPI): https://fred.stlouisfed.org/series/CPIAUCSL 
 
 
