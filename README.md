@@ -1,5 +1,4 @@
 ## Using Recession Predictions to Improve Asset Allocation Strategies
----
 
 ### Overview
 ---
