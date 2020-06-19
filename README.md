@@ -28,7 +28,7 @@ The independent variables being used to train the model are the yield curve, exp
 
 Methodology
 ---
-**Train | Test Split**
+**Train | Test Split**  
 I divided the 1982-2020 period into training and test sets, with the dividing line between them being December, 2002. This provided a reasonable balance of both recessionary months and expansionary ones.
 
 In selecting a model, I sought to choose a classifier and associated hyperparameters that maximized a given model's F_Beta score. Beta in this case was the ratio of the S&P 500's mean monthly returns during recessions to the same index's mean monthly returns during expansions. My aim in using this metric was to balance the goal of shifting out of the market before a recession hits with the desire to remain invested during the majority of the market’s uptrends. Out of the models I tested, **Logistic Regression** performed best in this regard.
