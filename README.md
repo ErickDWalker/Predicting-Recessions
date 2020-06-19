@@ -22,7 +22,7 @@ The independent variables being used to train the model are the yield curve, exp
 3. Unemployment rate (UNRATE, Frequency = Monthly):  https://fred.stlouisfed.org/series/UNRATE
 4. NFCI Nonfinancial Leverage Subindex (Frequency = Weekly): https://fred.stlouisfed.org/series/NFCINONFINLEVERAGE
 5. 10-yr constant maturity rate (DGS10): https://fred.stlouisfed.org/series/DGS10
-6. S&P500 data: http://www.econ.yale.edu/~shiller/data.htm
+6. S&P 500 data: http://www.econ.yale.edu/~shiller/data.htm
 7. Consumer Price Index (CPI): https://fred.stlouisfed.org/series/CPIAUCSL 
 
 
@@ -31,7 +31,7 @@ Methodology
 **Train | Test Split**
 I divided the 1982-2020 period into training and test sets, with the dividing line between them being December, 2002. This provided a reasonable balance of both recessionary months and expansionary ones.
 
-In selecting a model, I sought to choose a classifier and associated hyperparameters that maximized a given model's F_Beta score. Beta in this case was the ratio of the S&P500's mean monthly returns during recessions to the same index's mean monthly returns during expansions. My aim in using this metric was to balance the goal of shifting out of the market before a recession hits with the desire to remain invested during the majority of the market’s uptrends. Out of the models I tested, **Logistic Regression** performed best in this regard.
+In selecting a model, I sought to choose a classifier and associated hyperparameters that maximized a given model's F_Beta score. Beta in this case was the ratio of the S&P 500's mean monthly returns during recessions to the same index's mean monthly returns during expansions. My aim in using this metric was to balance the goal of shifting out of the market before a recession hits with the desire to remain invested during the majority of the market’s uptrends. Out of the models I tested, **Logistic Regression** performed best in this regard.
 
 After choosing a model I used the model's output scores to create rules to that would shift an investor's portfolio out of the stock market sufficiently ahead of economic downturns. To do that I ran a number of simulations (for loops) on a hypothetical portfolio, where each simulation adjusts the values of three variables to find the combination of values that yields the maximum portfolio return over the training time frame. These variables are:
 1. The model score at which to lower the portfolio's equity allocation
