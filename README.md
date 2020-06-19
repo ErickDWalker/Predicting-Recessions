@@ -3,7 +3,7 @@
 
 Overview
 ---
-This project aims to build a classification model that can predict the occurrence of economic recessions 12-months in the future. Scores output by this model are then used to develop trading rules that aim to shift a theoretical investor's portfolio out of equities before recessions - and the stock market declines that typically accompany them - occur. The stock market in this case is the S&P 500, and any money not invested in the market at any given time is assumed to be invested in 10-year U.S. Treasuries.
+This project aims to build a classification model that can predict the occurrence of economic recessions 12-months in the future. Scores output by this model are then used to develop trading rules that aim to shift a theoretical investor's portfolio out of equities before recessions - and the stock market declines that typically accompany them - occur. The stock market in this case is the S&P 500, and any money not invested in the market at any given time is assumed to be invested in 10-year U.S. Treasuries.  
 
 
 Data
@@ -19,7 +19,7 @@ The independent variables being used to train the model are the yield curve, exp
 4. NFCI Nonfinancial Leverage Subindex (Frequency = Weekly): https://fred.stlouisfed.org/series/NFCINONFINLEVERAGE
 5. 10-yr constant maturity rate (DGS10): https://fred.stlouisfed.org/series/DGS10
 6. S&P500 data: http://www.econ.yale.edu/~shiller/data.htm
-7. Consumer Price Index (CPI): https://fred.stlouisfed.org/series/CPIAUCSL
+7. Consumer Price Index (CPI): https://fred.stlouisfed.org/series/CPIAUCSL 
 
 
 Methodology
@@ -34,15 +34,17 @@ After choosing a model I used the model's output scores to create rules to that 
 2. The weights to shift the portfolio into once that model score is hit, and
 3. The model score at which to resume the portfolio's basline asset allocation 
 
-Other than when the rules counsel a shift in asset allocation, portfolio weights are kept constant, and the default test case for developing these rules was a classic 60 | 40 (stocks | bonds) portfolio, though any mix should yield similar rules.
+Other than when the rules counsel a shift in asset allocation, portfolio weights are kept constant, and the default test case for developing these rules was a classic 60 | 40 (stocks | bonds) portfolio, though any mix should yield similar rules.    
+
+
 
 Results
 ---
 Stated formally, the trading rules resulting in the highest portfolio returns were: Shift out of the stock market into a 10 | 90 (stocks | bonds) allocation once the model score hits 0.70, and hold that allocation until the model score reaches 0.10 or lower (at which point the portfolio returns to its baseline 60 | 40 allocation). Below is a plot showing these rules being carried out over the training set period (1982-2002). 
-![alt text](https://github.com/ErickDWalker/Recession_Prediction/blob/master/portfolio_weights_60:40_return_train.png?raw=true). 
+![alt text](https://github.com/ErickDWalker/Recession_Prediction/blob/master/portfolio_weights_60:40_return_train.png?raw=true)  
 
 
-Over the test set timeframe (January, 2003 - May, 2020) a 60 | 40 portfolio that followed the above trading rules would have earned a 9.44% CAGR versus the passsive 60 | 40 portfolio's 7.77%. To put that into dollars, an initial investment of $10,000 in the passive strategy would have grown to $36,634, while the trading portfolio would have grown to $47,779 (plot of the growth of $10,000 in various portfolios shown below). In addition the trading portfolio achieved this outperformance with a lower standard deviation of returns (1.87% vs 2.08%).
+Over the test set timeframe (January, 2003 - May, 2020) a 60 | 40 portfolio that followed the above trading rules would have earned a 9.44% CAGR versus the passsive 60 | 40 portfolio's 7.77%. To put that into dollars, an initial investment of $10,000 in the passive strategy would have grown to $36,634, while the trading portfolio would have grown to $47,779 (plot of the growth of $10,000 in various portfolios shown below). In addition the trading portfolio achieved this outperformance with a lower standard deviation of returns (1.87% vs 2.08%).  
 
 
 ![alt text](https://github.com/ErickDWalker/Recession_Prediction/blob/master/60:40_test.png?raw=true)
