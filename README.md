@@ -3,7 +3,7 @@
 
 Overview
 ---
-Conventional wisdom among investors often suggests that timing the stock market is a fool's errand. And while it is true that frequent trading in and out of the market rarely yields impressive results for the average investor, I would like to propose that a more disciplined, infrequent approach to timing can add value relative to a portfolio that holds a constant asset allocation over time. 
+Conventional wisdom among investors often suggests that timing the stock market is a fool's errand. And while it is true that frequent trading in and out of the market rarely yields impressive results for the average investor, I would like to propose that a more disciplined, infrequent approach to market timing can add value relative to a portfolio that holds a constant asset allocation over time. 
 
 This proposal stems from an assumption that broader stock market cycles (Bull and Bear markets in Wall Street parlance) are tied to other, more predictable events, and by exploiting that predictability, investors can avoid the worst (though not all) of stock market declines. Specifically, it is not a revolutionary idea to suggest that stock market returns are strongly linked to economic cycles (see plot below). As a result, if it can be shown that these economic cycles are to some degree predictable, it should logically follow that a portfolio management strategy can be developed to take advantage of that fact. 
 
