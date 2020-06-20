@@ -3,7 +3,7 @@
 
 Overview
 ---
-Conventional wisdom among investors often suggests that timing the stock market is a fool's errand. And while it is true that frequent trading in and out of the market rarely yields impressive results for the average investor, I would like to propose that a more disciplined, infrequent approach to market timing can add value relative to a portfolio that holds a constant asset allocation over time. 
+Conventional wisdom among investors often suggests that timing the stock market is a fool's errand. And while it is true that rapid trading in and out of the market rarely yields impressive results for the average investor, I would like to propose that a more disciplined, infrequent approach to market timing can add value relative to a portfolio that holds a constant asset allocation over time. 
 
 This proposal stems from an assumption that broader stock market cycles (Bull and Bear markets in Wall Street parlance) are tied to other, more predictable events, and by exploiting that predictability, investors can avoid the worst (though not all) of stock market declines. Specifically, it is not a revolutionary idea to suggest that stock market returns are strongly linked to economic cycles (see plot below). As a result, if it can be shown that these economic cycles are to some degree predictable, it should logically follow that a portfolio management strategy can be developed to take advantage of that fact. 
 
@@ -33,7 +33,7 @@ Methodology
 **Train | Test Split**  
 I divided the 1982-2020 period into training and test sets, with the dividing line between them being December, 2002. This provided a reasonable balance of both recessionary months and expansionary ones.
 
-In selecting a model, I sought to choose a classifier and associated hyperparameters that maximized a given model's F_Beta score. Beta in this case was the ratio of the S&P 500's mean monthly returns during recessions to the same index's mean monthly returns during expansions. My aim in using this metric was to balance the goal of shifting out of the market before a recession hits with the desire to remain invested during the majority of the market’s uptrends. Out of the models I tested, **Logistic Regression** performed best in this regard. Below is a plot of the scores produced by the model (first fit on the training set) when running *predict* on the entire data set.
+In selecting a model, I sought to choose a classifier and associated hyperparameters with the maximum F_Beta score. Beta in this case was the ratio of the S&P 500's mean monthly returns during recessions to the same index's mean monthly returns during expansions. My aim in using this metric was to balance the goal of shifting out of the market before a recession hits with the desire to remain invested during the majority of the market’s uptrends. Out of the models I tested, **Logistic Regression** performed best in this regard. Below is a plot of the scores produced by the model (first fit on the training set) when running *predict* on the entire data set.
 
 ![alt text](https://github.com/ErickDWalker/Recession_Prediction/blob/master/img/Logistic_Regression_Output.png?raw=true)
 
