@@ -16,7 +16,7 @@ Data
 ---
 **Time Frame:** January 1982 - May 2020
 
-The independent variables being used to train the model are the yield curve, expressed as the difference between yields on 10-yr and 3-month US Treasury securities, the Civilian Unemployment Rate (U3), and the NFCI Nonfinancial Leverage subindex. These variables are aggregated by month, and then smoothed using a 3-month SMA. The dependent variable is a recession indicator, with one (1) representing the occurrence of recession, and zero (0) the absence of recession. This indicator is shifted 12-months into the past as stock market declines do not perfectly coincide with the onset of recessions, and the aim here is to give investors sufficient advanced warning to lower their equity allocation. All data used to build the recession prediction model is obtained from the Federal Reserve Bank of St. Louis Economic Database (FRED), while S&P500 return data is drawn from Professor Robert Shiller's publically available dataset. 
+The independent variables being used to train the model are the yield curve, expressed as the difference between yields on 10-yr and 3-month US Treasury securities, the Civilian Unemployment Rate (U3), and the NFCI Nonfinancial Leverage subindex. These variables are aggregated by month, and then smoothed using a 3-month SMA. The dependent variable is a binary indicator, with one (1) representing the occurrence of recession as defined by the National Bureau of Economic Research, and zero (0) the absence of one. To account for the fact that stock market declines do not perfectly coincide with the onset of recessions, this indicator is shifted 12-months into the past, with the aim of providing investors sufficient warning in advance to lower their equity exposure. All data used to build the recession prediction model is obtained from the Federal Reserve Bank of St. Louis Economic Database (FRED), while S&P500 return data is drawn from Professor Robert Shiller's publically available data set. 
 
 **Sources:**
 1. 10YR - 3M Treasury spread. (T10Y3M column in notebook, Frequency = Daily):  https://fred.stlouisfed.org/series/T10Y3M 
@@ -31,9 +31,9 @@ The independent variables being used to train the model are the yield curve, exp
 Methodology
 ---
 **Train | Test Split**  
-I divided the 1982-2020 period into training and test sets, with the dividing line between them being December, 2002. This provided a reasonable balance of both recessionary months and expansionary ones.
+I split the 1982-2020 period into training and test sets, with the dividing line between them being December, 2002. This provided a reasonable balance of recessionary and expansionary months in both sets.
 
-In selecting a model, I sought to choose a classifier and associated hyperparameters with the maximum F_Beta score. Beta in this case was the ratio of the S&P 500's mean monthly returns during recessions to the same index's mean monthly returns during expansions. My aim in using this metric was to balance the goal of shifting out of the market before a recession hits with the desire to remain invested during the majority of the market’s uptrends. Out of the models I tested, **Logistic Regression** performed best in this regard. Below is a plot of the scores produced by the model (first fit on the training set) when running *predict* on the entire data set.
+In selecting a model, I sought to choose a classifier and associated hyperparameters that produced the maximum F_Beta score. My aim in using this metric was to allow for a consideration of both recall and precision, thereby balancing the goal of shifting out of the market before a recession hits with the desire to remain invested during the majority of the market’s uptrends. Beta in this case was the ratio of the S&P 500's mean monthly returns during recessions to the same index's mean monthly returns during expansions. Out of the models I tested, **Logistic Regression** performed best in this regard. Below is a plot of the scores produced when applying the model's *predict* method to the entire data set (after fitting the model on the training data set).
 
 ![alt text](https://github.com/ErickDWalker/Recession_Prediction/blob/master/img/Logistic_Regression_Output.png?raw=true)
 
@@ -47,7 +47,7 @@ Other than when the rules counsel a shift in asset allocation, portfolio weights
 
 Results
 ---
-Stated formally, the trading rules resulting in the highest portfolio returns were: Shift out of the stock market into a 10 | 90 (stocks | bonds) allocation once the model score hits 0.70, and hold that allocation until the model score reaches 0.10 or lower (at which point the portfolio returns to its baseline 60 | 40 allocation). Below is a plot showing these rules being carried out over the training set period (1982-2002).
+Stated formally, the trading rules resulting in the highest portfolio returns over the training set were: Shift out of the stock market into a 10 | 90 (stocks | bonds) allocation once the model score hits 0.70, and hold that allocation until the model score reaches 0.10 or lower (at which point the portfolio returns to its baseline 60 | 40 allocation). Below is a plot showing these rules being carried out over the training set period (1982-2002).
 
 ![alt text](https://github.com/ErickDWalker/Recession_Prediction/blob/master/img/portfolio_weights_60:40_return_train.png?raw=true)  
 
