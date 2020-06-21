@@ -47,7 +47,7 @@ Other than when the rules counsel a shift in asset allocation, portfolio weights
 
 Results
 ---
-Stated formally, the trading rules resulting in the highest portfolio returns over the training set were: Shift out of the stock market into a 10 | 90 (stocks | bonds) allocation once the model score hits 0.70, and hold that allocation until the model score reaches 0.10 or lower (at which point the portfolio returns to its baseline 60 | 40 allocation). Below is a plot showing these rules being carried out over the training set period (1982-2002).
+Stated formally, the trading rules resulting in the highest portfolio returns over the training set time frame were: Shift out of the stock market into a 10 | 90 (stocks | bonds) allocation once the model score hits 0.70, and hold that allocation until the model score reaches 0.10 or lower. At that point the portfolio returns to its baseline 60 | 40 allocation. Below is a plot displaying the execution of these rules over the training set period (1982-2002).
 
 ![alt text](https://github.com/ErickDWalker/Recession_Prediction/blob/master/img/portfolio_weights_60:40_return_train.png?raw=true)
 
