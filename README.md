@@ -9,7 +9,7 @@ This proposal stems from an assumption that broader stock market cycles (Bull an
 
 ![alt text](https://github.com/ErickDWalker/Recession_Prediction/blob/master/img/S&P500_returns.png?raw=true)  
 
-In summary, this project aims to build a classification model that can predict the occurrence of economic recessions 12-months prior to their onset. Scores output by this model are then used to develop trading rules that aim to shift a theoretical investor's portfolio out of equities before recessions - and the often substantial stock market declines that accompany them - begin. The "stock market" referred to throughout this text is the S&P 500, and any money not invested in the market at any given time is assumed to be invested in 10-year U.S. Treasuries.  
+In summary, this project focuses on building a classification model that can predict the occurrence of economic recessions 12-months prior to their onset. Scores output by this model are then used to develop trading rules that aim to shift a theoretical investor's portfolio out of equities before recessions - and the often substantial stock market declines that accompany them - begin. The "stock market" referred to throughout this text is the S&P 500, and any money not invested in the market at any given time is assumed to be invested in 10-year U.S. Treasuries.  
 
 
 Data
