@@ -3,9 +3,9 @@
 
 Overview
 ---
-Conventional wisdom among investors often suggests that timing the stock market is a fool's errand. And while it is true that rapid trading in and out of the market rarely yields impressive results for the average investor, I would like to propose that a more disciplined, infrequent approach to market timing can add value relative to a portfolio that holds a constant asset allocation over time. 
+Conventional wisdom among investors often suggests that timing the stock market is a fool's errand. And while it is true that rapid trading in and out of the market generally yields subpar results, I would like to propose that a more disciplined, rule-based timing system can add value over time relative to a portfolio maintaining a fixed asset allocation. 
 
-This proposal stems from an assumption that broader stock market cycles (Bull and Bear markets in Wall Street parlance) are tied to other, more predictable events, and by exploiting that predictability, investors can avoid a material portion of stock market declines. Specifically, it is not a new idea to suggest that stock market returns are linked to economic cycles (see plot below). And if it can be shown that these economic cycles are to some degree predictable, it should logically follow that a countercyclical portfolio management strategy can be developed to take advantage of that fact. 
+This proposal stems from an assumption that stock market returns are in part linked to macroeconomic cycles that show some level of predictability. Specifically, it is not a particularly novel idea to suggest that stock market returns are negatively impacted by economic recessions (see plot below). As a result, if it can be shown that these economic cycles are to some degree predictable, it should follow that a countercyclical portfolio management strategy can be developed to take advantage of that fact. 
 
 ![alt text](https://github.com/ErickDWalker/Recession_Prediction/blob/master/img/S&P500_returns.png?raw=true)  
 
@@ -19,10 +19,10 @@ Data
 The independent variables being used to train the model are the yield curve, expressed as the difference between yields on 10-yr and 3-month US Treasury securities, the Civilian Unemployment Rate (U3), and the NFCI Nonfinancial Leverage subindex. These variables are aggregated by month, and then smoothed using a 3-month SMA. The dependent variable is a binary indicator, with one (1) representing the occurrence of economic recession as defined by the National Bureau of Economic Research, and zero (0) the absence of one. To account for the fact that stock market declines do not perfectly coincide with the onset of recessions, this indicator is shifted 12-months into the past, with the aim of providing investors sufficient warning in advance to lower their equity exposure. All data used to build the recession prediction model is obtained from the Federal Reserve Bank of St. Louis Economic Database (FRED), while S&P500 return data is drawn from Professor Robert Shiller's publicly available data set. 
 
 **Sources:**
-1. 10YR - 3M Treasury spread. (T10Y3M column in notebook, Frequency = Daily):  https://fred.stlouisfed.org/series/T10Y3M 
-2. Recession Indicator (USREC, Frequency = Monthly): https://fred.stlouisfed.org/series/USREC 
-3. Unemployment rate (UNRATE, Frequency = Monthly):  https://fred.stlouisfed.org/series/UNRATE
-4. NFCI Nonfinancial Leverage Subindex (Frequency = Weekly): https://fred.stlouisfed.org/series/NFCINONFINLEVERAGE
+1. 10YR - 3M Treasury spread. (T10Y3M column in notebook):  https://fred.stlouisfed.org/series/T10Y3M 
+2. Recession Indicator (USREC): https://fred.stlouisfed.org/series/USREC 
+3. Unemployment rate (UNRATE):  https://fred.stlouisfed.org/series/UNRATE
+4. NFCI Nonfinancial Leverage Subindex: https://fred.stlouisfed.org/series/NFCINONFINLEVERAGE
 5. 10-yr constant maturity rate (DGS10): https://fred.stlouisfed.org/series/DGS10
 6. S&P 500 data: http://www.econ.yale.edu/~shiller/data/ie_data.xls
 7. Consumer Price Index (CPI): https://fred.stlouisfed.org/series/CPIAUCSL 
