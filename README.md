@@ -5,7 +5,7 @@ Overview
 ---
 Conventional wisdom among investors often suggests that timing the stock market is a fool's errand. And while it is true that rapid trading in and out of the market generally yields subpar results, I would like to propose that a more disciplined, rule-based timing system can add value over time relative to a portfolio maintaining a fixed asset allocation. 
 
-This proposal stems from an assumption that stock market returns are in part linked to macroeconomic cycles that show some level of predictability. Specifically, it is not a particularly novel idea to suggest that stock market returns are negatively impacted by economic recessions (see plot below). As a result, if it can be shown that these economic cycles are to some degree predictable, it should follow that a countercyclical portfolio management strategy can be developed to take advantage of that fact. 
+This proposal stems from an assumption that stock market returns are in part linked to macroeconomic cycles that show some level of predictability. Specifically, it is not a particularly novel idea to suggest that stock market returns are negatively impacted by economic recessions (see plot below). As a result, if it can be shown that these economic cycles are to some degree predictable, it should follow that a countercyclical portfolio management strategy can be developed to exploit that fact. 
 
 ![alt text](https://github.com/ErickDWalker/Recession_Prediction/blob/master/img/S&P500_returns.png?raw=true)  
 
