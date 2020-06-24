@@ -5,7 +5,7 @@ Overview
 ---
 Conventional wisdom among investors often suggests that timing the stock market is a fool's errand. And while it is true that rapid trading in and out of the market rarely yields impressive results for the average investor, I would like to propose that a more disciplined, infrequent approach to market timing can add value relative to a portfolio that holds a constant asset allocation over time. 
 
-This proposal stems from an assumption that broader stock market cycles (Bull and Bear markets in Wall Street parlance) are tied to other, more predictable events, and by exploiting that predictability, investors can avoid the worst (though not all) of stock market declines. Specifically, it is not a revolutionary idea to suggest that stock market returns are strongly linked to economic cycles (see plot below). As a result, if it can be shown that these economic cycles are to some degree predictable, it should logically follow that a portfolio management strategy can be developed to take advantage of that fact. 
+This proposal stems from an assumption that broader stock market cycles (Bull and Bear markets in Wall Street parlance) are tied to other, more predictable events, and by exploiting that predictability, investors can avoid a material portion of stock market declines. Specifically, it is not a new idea to suggest that stock market returns are linked to economic cycles (see plot below). And if it can be shown that these economic cycles are to some degree predictable, it should logically follow that a countercyclical portfolio management strategy can be developed to take advantage of that fact. 
 
 ![alt text](https://github.com/ErickDWalker/Recession_Prediction/blob/master/img/S&P500_returns.png?raw=true)  
 
@@ -14,9 +14,9 @@ In summary, this project focuses on building a classification model that can pre
 
 Data
 ---
-**Time Frame:** January 1982 - May 2020
+**Time Frame:** January 1982 - May 2020.
 
-The independent variables being used to train the model are the yield curve, expressed as the difference between yields on 10-yr and 3-month US Treasury securities, the Civilian Unemployment Rate (U3), and the NFCI Nonfinancial Leverage subindex. These variables are aggregated by month, and then smoothed using a 3-month SMA. The dependent variable is a binary indicator, with one (1) representing the occurrence of recession as defined by the National Bureau of Economic Research, and zero (0) the absence of one. To account for the fact that stock market declines do not perfectly coincide with the onset of recessions, this indicator is shifted 12-months into the past, with the aim of providing investors sufficient warning in advance to lower their equity exposure. All data used to build the recession prediction model is obtained from the Federal Reserve Bank of St. Louis Economic Database (FRED), while S&P500 return data is drawn from Professor Robert Shiller's publically available data set. 
+The independent variables being used to train the model are the yield curve, expressed as the difference between yields on 10-yr and 3-month US Treasury securities, the Civilian Unemployment Rate (U3), and the NFCI Nonfinancial Leverage subindex. These variables are aggregated by month, and then smoothed using a 3-month SMA. The dependent variable is a binary indicator, with one (1) representing the occurrence of economic recession as defined by the National Bureau of Economic Research, and zero (0) the absence of one. To account for the fact that stock market declines do not perfectly coincide with the onset of recessions, this indicator is shifted 12-months into the past, with the aim of providing investors sufficient warning in advance to lower their equity exposure. All data used to build the recession prediction model is obtained from the Federal Reserve Bank of St. Louis Economic Database (FRED), while S&P500 return data is drawn from Professor Robert Shiller's publicly available data set. 
 
 **Sources:**
 1. 10YR - 3M Treasury spread. (T10Y3M column in notebook, Frequency = Daily):  https://fred.stlouisfed.org/series/T10Y3M 
@@ -33,11 +33,13 @@ Methodology
 **Train | Test Split**  
 I split the 1982-2020 period into training and test sets, with the dividing line between them being December, 2002. This provided a reasonable balance of recessionary and expansionary months in both sets.
 
+**Model Selection**
 In selecting a model, I sought to choose a classifier and associated hyperparameters that produced the maximum F_Beta score. My aim in using this metric was to allow for a consideration of both recall and precision, thereby balancing the goal of shifting out of the market before a recession hits with the desire to remain invested during the majority of the market’s uptrends. Beta in this case was the ratio of the S&P 500's mean monthly returns during recessions to the same index's mean monthly returns during expansions. Out of the models I tested, **Logistic Regression** performed best in this regard. Below is a plot of the scores produced when applying the model's *predict* method to the entire data set (after fitting the model on the training data set).
 
 ![alt text](https://github.com/ErickDWalker/Recession_Prediction/blob/master/img/Logistic_Regression_Output.png?raw=true)
 
-After choosing a model I used the model's output scores (the maroon line in the plot above) to create rules that would shift an investor's portfolio out of the stock market sufficiently ahead of economic downturns. To do that I ran a number of simulations on a hypothetical portfolio, where each simulation adjusts the values of three variables to find the combination of values that yields the maximum portfolio return over the training time frame. These variables are:
+**Developing a Trading Strategy**
+After choosing a model I used the model's output scores (the maroon line in the plot above) to create rules that would shift an investor's portfolio out of the stock market sufficiently ahead of economic downturns. To do that I ran a number of simulations (in code, for loops) on a hypothetical portfolio, where each simulation adjusts the values of three variables to find the combination of values that yields the maximum portfolio return over the training time frame. These variables are:
 1. The model score at which to lower the portfolio's equity allocation
 2. The weights to shift the portfolio into once that model score is hit, and
 3. The model score at which to resume the portfolio's baseline asset allocation 
