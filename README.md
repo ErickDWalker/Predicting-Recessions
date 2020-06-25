@@ -5,11 +5,15 @@ Overview
 ---
 Conventional wisdom among investors often suggests that timing the stock market is a fool's errand. And while it is true that rapid trading in and out of the market generally yields subpar results, I would like to propose that a more disciplined, rule-based timing system can add value over time relative to a portfolio maintaining a fixed asset allocation. 
 
-This proposal stems from an assumption that stock market returns are in part linked to macroeconomic cycles that show some level of predictability. Specifically, it is not a particularly novel idea to suggest that stock market returns are negatively impacted by economic recessions (see plot below). As a result, if it can be shown that these economic cycles are to some degree predictable, it should follow that a countercyclical portfolio management strategy can be developed to exploit that fact. 
+This proposal stems from two assumptions:  
+1. Stock market returns are in part linked to macroeconomic cycles 
+2. These macroeconomic cycles show some level of predictability. 
+
+Specifically, and in reference to assumption #1, it is not a particularly novel idea to suggest that stock market returns are negatively impacted by economic recessions (see plot below). And so, if it can be shown that these economic downturns are to some degree predictable, it should follow that a countercyclical portfolio management strategy can be developed to exploit that fact. 
 
 ![alt text](https://github.com/ErickDWalker/Recession_Prediction/blob/master/img/S&P500_returns.png?raw=true)  
 
-In summary, this project focuses on building a classification model that can predict the occurrence of economic recessions in the U.S. 12-months prior to their onset. Scores output by this model are then used to develop trading rules that aim to shift a theoretical investor's portfolio out of equities before recessions - and the often substantial stock market declines that accompany them - begin. The "stock market" referred to throughout this text is the S&P 500, and any money not invested in the market at any given time is assumed to be invested in 10-year U.S. Treasuries.  
+To state the objective formally, this project focuses on building a classification model that can predict the occurrence of economic recessions in the U.S. 12-months prior to their onset. Scores output by this model are then used to develop trading rules that aim to shift a theoretical investor's portfolio out of equities before recessions - and the often substantial stock market declines that accompany them - begin. The "stock market" referred to throughout this text is the S&P 500, and any money not invested in the market at any given time is assumed to be invested in 10-year U.S. Treasuries.  
 
 
 Data
