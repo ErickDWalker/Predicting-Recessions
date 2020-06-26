@@ -11,7 +11,7 @@ This proposal stems from two assumptions:
 
 Specifically, and in reference to assumption #1, it is not a particularly novel idea to suggest that stock market returns are negatively impacted by economic recessions (see plot below). And so, if it can be shown that these economic downturns are to some degree predictable, it should follow that a countercyclical portfolio management strategy can be developed to exploit that fact. 
 
-<img src="https://github.com/ErickDWalker/Recession_Prediction/blob/master/img/S&P500_returns.png" alt="drawing" width="500"/>
+<img src="https://github.com/ErickDWalker/Recession_Prediction/blob/master/img/S&P500_returns.png" alt="drawing" width="500" height="400"/>
 
 ![alt text]()  
 
