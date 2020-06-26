@@ -11,7 +11,7 @@ This proposal stems from two assumptions:
 
 Specifically, and in reference to assumption #1, it is not a particularly novel idea to suggest that stock market returns are negatively impacted by economic recessions (see plot below). And so, if it can be shown that these economic downturns are to some degree predictable, it should follow that a countercyclical portfolio management strategy can be developed to exploit that fact. 
 
-<img src="https://github.com/ErickDWalker/Recession_Prediction/blob/master/img/S&P500_returns.png" alt="centered image" width="900" height="500">
+<img src="https://github.com/ErickDWalker/Recession_Prediction/blob/master/img/S&P500_returns.png" width="900" height="500">
 
 To state the objective formally, this project focuses on building a classification model that can predict the occurrence of economic recessions in the U.S. 12-months prior to their onset. Scores output by this model are then used to develop trading rules that aim to shift a theoretical investor's portfolio out of equities before recessions - and the often substantial stock market declines that accompany them - begin. The "stock market" referred to throughout this text is the S&P 500, and any money not invested in the market at any given time is assumed to be invested in 10-year U.S. Treasuries.  
 
@@ -40,7 +40,9 @@ I split the 1982-2020 period into training and test sets, with the dividing line
 **Model Selection**  
 In selecting a model, I sought to choose a classifier and associated hyperparameters that produced the maximum F_Beta score. My aim in using this metric was to allow for a consideration of both recall and precision, thereby balancing the goal of shifting out of the market before a recession hits with the desire to remain invested during the majority of the market’s uptrends. Beta in this case was the ratio of the S&P 500's mean monthly returns during recessions to the same index's mean monthly returns during expansions. Out of the algorithms I tested, a Logistic Regression model adjusted for class imbalance performed best in this regard. Below is a plot of the three features used to build the model, and the scores produced (maroon line) when applying the model's *predict* method to the entire data set (after fitting the model on the training data set).
 
-![alt text](https://github.com/ErickDWalker/Recession_Prediction/blob/master/img/Logistic_Regression_Output.png?raw=true)
+<img src="https://github.com/ErickDWalker/Recession_Prediction/blob/master/img/Logistic_Regression_Output.png" width="900" height="500">
+
+![alt text]()
 
 **Developing a Trading Strategy**  
 After choosing a model I used the model's output scores to create rules that would shift an investor's portfolio out of the stock market sufficiently ahead of economic downturns. To do that I ran a number of simulations (in code, for loops) on a hypothetical portfolio, where each simulation adjusts the values of three variables to find the combination of values that yields the maximum portfolio return over the training time frame. These variables are:
