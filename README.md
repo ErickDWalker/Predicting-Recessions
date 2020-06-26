@@ -11,7 +11,7 @@ This proposal stems from two assumptions:
 
 Specifically, and in reference to assumption #1, it is not a particularly novel idea to suggest that stock market returns are negatively impacted by economic recessions (see plot below). And so, if it can be shown that these economic downturns are to some degree predictable, it should follow that a countercyclical portfolio management strategy can be developed to exploit that fact. 
 
-<p style="text-align:center;"><img src="https://github.com/ErickDWalker/Recession_Prediction/blob/master/img/S&P500_returns.png" alt="centered image" width="800" height="400"></p>
+<img src="https://github.com/ErickDWalker/Recession_Prediction/blob/master/img/S&P500_returns.png" alt="centered image" width="900" height="500">
 
 To state the objective formally, this project focuses on building a classification model that can predict the occurrence of economic recessions in the U.S. 12-months prior to their onset. Scores output by this model are then used to develop trading rules that aim to shift a theoretical investor's portfolio out of equities before recessions - and the often substantial stock market declines that accompany them - begin. The "stock market" referred to throughout this text is the S&P 500, and any money not invested in the market at any given time is assumed to be invested in 10-year U.S. Treasuries.  
 
