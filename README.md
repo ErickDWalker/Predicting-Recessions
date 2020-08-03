@@ -3,9 +3,7 @@
 
 Overview
 ---
-Conventional wisdom among investors often suggests that timing the stock market is a fool's errand. And while it is true that rapid trading in and out of the market generally yields subpar results, I would like to propose that a more disciplined, rule-based timing system can add value over time relative to a portfolio maintaining a fixed asset allocation. 
-
-This proposal stems from two assumptions:  
+Conventional wisdom among investors often suggests that timing the stock market is a fool's errand. And while it is true that rapid trading in and out of the market generally yields subpar results, I would like to propose that a more disciplined, rule-based timing system can add value over time relative to a portfolio maintaining a fixed asset allocation. This proposal stems from two assumptions:  
 1. Stock market returns are in part linked to macroeconomic cycles 
 2. These macroeconomic cycles show some level of predictability. 
 
