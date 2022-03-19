@@ -18,7 +18,7 @@ Data
 ---
 **Time Frame:** January 1982 - May 2020.
 
-The independent variables being used to train the model are the yield curve, expressed as the difference between yields on 10-yr and 3-month U.S. Treasury securities, the Civilian Unemployment Rate (U3), and the NFCI Nonfinancial Leverage subindex. These variables are aggregated by month, and then smoothed using a 3-month SMA. The dependent variable is a binary indicator, with one (1) representing the occurrence of economic recession as defined by the National Bureau of Economic Research, and zero (0) the absence of one. To account for the fact that stock market declines do not perfectly coincide with the onset of recessions, this indicator is shifted 12-months into the past, with the aim of providing investors sufficient warning in advance to lower their equity exposure. All data used to build the recession prediction model is obtained from the Federal Reserve Bank of St. Louis Economic Database (FRED), while S&P500 return data is drawn from Professor Robert Shiller's publicly available data set. 
+The independent variables being used to train the model are the yield curve, expressed as the difference between yields on 10-yr and 3-month U.S. Treasury securities, the Civilian Unemployment Rate (U3), and the NFCI Nonfinancial Leverage subindex. These variables are aggregated by month, and then smoothed using a 3-month SMA. The dependent variable is a binary indicator, with one (1) representing the occurrence of economic recession as defined by the National Bureau of Economic Research, and zero (0) the absence of one. To account for the fact that stock market declines do not perfectly coincide with the onset of recessions, this indicator is shifted 12-months into the past, with the aim of providing investors sufficient warning in advance to lower their equity exposure. All data used to build the recession prediction model is obtained from the Federal Reserve Bank of St. Louis Economic Database (FRED), while S&P500 return data (inclusive of dividends) is drawn from Professor Robert Shiller's publicly available data set. 
 
 **Sources:**
 1. 10YR - 3M Treasury spread. (T10Y3M column in notebook):  https://fred.stlouisfed.org/series/T10Y3M 
@@ -47,7 +47,8 @@ After choosing a model I used the model's output scores to create rules that wou
 2. The asset weights to shift the portfolio into once that model score is hit, and
 3. The model score at which to resume the portfolio's baseline asset allocation 
 
-Other than when the rules counsel a shift in asset allocation, portfolio weights are kept constant at a baseline allocation that can be chosen in advance by the user. The default baseline case used in the notebook for developing the rules was a classic 60 | 40 (stocks | bonds) portfolio. In deciding what asset weights to shift into (variable #2), the simulations were "instructed" to keep the portfolio's stock weight at or under the baseline's. In other words, with the default baseline 60 | 40 portfolio the stock weight was not allowed to be set higher than 60%. For simplicity, rebalancing to the baseline allocation is assumed to take place monthly, aligned with the frequency of the underlying return data.
+Other than when the rules counsel a shift in asset allocation, portfolio weights are kept constant at a baseline allocation that can be chosen in advance by the user. The default baseline case used in the notebook for developing the rules was a classic 60 | 40 (stocks | bonds) portfolio. For simplicity, rebalancing to the baseline allocation is assumed to take place monthly, aligned with the frequency of the underlying return data.
+
 
 
 Results
