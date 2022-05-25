@@ -42,12 +42,14 @@ In selecting a model, I sought to choose a classifier and associated hyperparame
 
 
 **Developing a Trading Strategy**  
-After choosing a model I used the model's output scores to create rules that would shift an investor's portfolio out of the stock market sufficiently ahead of economic downturns. This was accomplished by running a number of simulations (in code, for loops) on a hypothetical portfolio, where each simulation adjusts the values of three variables to find the combination of values that yields the maximum portfolio return over the training time frame. These variables are:
+After choosing a model, I used the model's output scores to create rules that would shift an investor's portfolio out of the stock market sufficiently ahead of economic downturns. This was accomplished by running a number of simulations (in code, for loops) on a hypothetical portfolio, where each simulation adjusts three variables to find the combination of values that yields the maximum portfolio return over the training time frame. 
+
+These variables are:
 1. The model score at which to lower the portfolio's equity allocation
 2. The asset weights to shift the portfolio into once that model score is hit, and
 3. The model score at which to resume the portfolio's baseline asset allocation 
 
-Other than when the rules counsel a shift in asset allocation, portfolio weights are kept constant at a baseline allocation that can be chosen in advance by the user. The default baseline case used in the notebook for developing the rules was a classic 60 | 40 (stocks | bonds) portfolio. For simplicity, rebalancing to the baseline allocation is assumed to take place monthly, aligned with the frequency of the underlying return data.
+Other than when the rules counsel a shift in asset allocation, portfolio weights are kept constant at a baseline allocation that can be chosen in advance by the user. The default baseline case used in the notebook for developing the rules was a classic 60 | 40 (stocks | bonds) portfolio. For simplicity, rebalancing to the "default" allocation (60|40 during normal times, and the reduced equity allocation mix during times when the rules suggest reducing equity exposure) is assumed to take place monthly, aligned with the frequency of the underlying return data.
 
 
 
